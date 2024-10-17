@@ -1,0 +1,17 @@
+# Amazon Product Data Analysis
+
+## Project Goal
+The goal of this project is to analyze Amazon product data, focusing on product ratings, discounts, and reviews to gain insights into customer preferences and the most attractive product categories.
+
+## Benefits to the Industry
+This analysis helps e-commerce platforms and sellers understand:
+- Which products receive the best ratings.
+- How discount strategies impact product attractiveness.
+- Insights into customer feedback to improve product offerings.
+
+## Python Libraries Used
+- **Pandas**: For data manipulation and cleaning.
+- **Matplotlib & Seaborn**: For data visualization.
+
+## Target Audience
+This project is relevant to data analysts, e-commerce marketers, and product managers interested in customer behavior and product performance optimization on online platforms.
