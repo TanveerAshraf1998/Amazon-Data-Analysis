@@ -1,0 +1,51 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load dataset
+file_path = 'amazon.csv'
+data = pd.read_csv(file_path)
+
+# Data Cleaning
+# Remove duplicates
+data = data.drop_duplicates()
+
+# Convert 'discounted_price' and 'actual_price' to numeric by removing the '₹' symbol and commas
+data['discounted_price'] = data['discounted_price'].str.replace('₹', '').str.replace(',', '').astype(float)
+data['actual_price'] = data['actual_price'].str.replace('₹', '').str.replace(',', '').astype(float)
+
+# Convert 'rating' to numeric (some may contain non-numeric values, so errors='coerce' handles it)
+data['rating'] = pd.to_numeric(data['rating'], errors='coerce')
+
+# Drop rows where 'rating' is NaN
+data = data.dropna(subset=['rating'])
+
+# Data Visualization
+# 1. Distribution of Ratings
+plt.figure(figsize=(8, 6))
+sns.histplot(data['rating'], bins=20, kde=True)
+plt.title('Distribution of Product Ratings')
+plt.xlabel('Rating')
+plt.ylabel('Frequency')
+plt.show()
+
+# 2. Top 10 Products with Highest Discount Percentage
+# Convert discount_percentage to numeric
+data['discount_percentage'] = data['discount_percentage'].str.replace('%', '').astype(float)
+
+top_discounted_products = data.nlargest(10, 'discount_percentage')
+
+plt.figure(figsize=(10, 6))
+sns.barplot(x='discount_percentage', y='product_name', data=top_discounted_products)
+plt.title('Top 10 Products with Highest Discounts')
+plt.xlabel('Discount Percentage')
+plt.ylabel('Product Name')
+plt.show()
+
+# 3. Average Rating by Category
+plt.figure(figsize=(12, 8))
+sns.barplot(x='rating', y='category', data=data, ci=None)
+plt.title('Average Rating by Category')
+plt.xlabel('Average Rating')
+plt.ylabel('Category')
+plt.show()
